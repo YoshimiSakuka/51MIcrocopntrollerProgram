@@ -1,0 +1,71 @@
+C51 COMPILER V8.02   ZHISHI                                                                03/02/2013 17:23:48 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE ZHISHI
+OBJECT MODULE PLACED IN zhishi.OBJ
+COMPILER INVOKED BY: D:\下载与应用\文件安装\新建文件夹 (2)\C51\BIN\C51.EXE zhishi.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：用四个led指示实验板键盘最下面一排的四个按键状态。
+   4                                  当按键按下时，对应led亮；松开后，对应led灭
+   5          *  公司：思源电子科技有限公司
+   6          *  编写：思源
+   7          *  日期：2012-12-25
+   8          *   QQ : 936559219
+   9          *  晶振:11.0592MHZ
+  10          ******************************************************************/
+  11          #include<reg51.h>
+  12          
+  13          sbit s2=P3^4;
+  14          sbit s3=P3^5;
+  15          sbit s4=P3^6;
+  16          sbit s5=P3^7;
+  17          sbit led1=P1^0;
+  18          sbit led2=P1^1;
+  19          sbit led3=P1^2;
+  20          sbit led4=P1^3;
+  21          
+  22          void main()
+  23          {
+  24   1              while(1)
+  25   1              {
+  26   2                      if(s2==0)
+  27   2                              led1=0;
+  28   2                      else
+  29   2                              led1=1;
+  30   2      
+  31   2                      if(s3==0)
+  32   2                              led2=0;
+  33   2                      else
+  34   2                              led2=1;
+  35   2      
+  36   2                      if(s4==0)
+  37   2                              led3=0;
+  38   2                      else
+  39   2                              led3=1;
+  40   2      
+  41   2                      if(s5==0)
+  42   2                              led4=0;
+  43   2                      else
+  44   2                              led4=1;
+  45   2              }
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     38    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V8.02   ZHISHI                                                                03/02/2013 17:23:48 PAGE 2   
+
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

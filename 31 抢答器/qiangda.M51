@@ -1,0 +1,340 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        12/26/2012  15:05:24  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+D:\单片机\KEIL UVISION3破解版\C51\BIN\BL51.EXE qiangda.obj TO qiangda
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  qiangda.obj (QIANGDA)
+  D:\单片机\KEIL UVISION3破解版\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\单片机\KEIL UVISION3破解版\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  qiangda (QIANGDA)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0012H     UNIT         ?DT?QIANGDA
+            DATA    001AH     0006H     UNIT         _DATA_GROUP_
+            BIT     0020H.0   0000H.4   UNIT         ?BI?QIANGDA
+                    0020H.4   0000H.4                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     00D8H     UNIT         ?PR?MAIN?QIANGDA
+            CODE    00E6H     00B1H     UNIT         ?PR?KEYSCAN?QIANGDA
+            CODE    0197H     008CH     UNIT         ?C_C51STARTUP
+            CODE    0223H     0064H     UNIT         ?PR?_DISPLAY?QIANGDA
+            CODE    0287H     001AH     UNIT         ?PR?_DELAY?QIANGDA
+            CODE    02A1H     0017H     UNIT         ?C_INITSEG
+            CODE    02B8H     0013H     UNIT         ?PR?TIME0?QIANGDA
+            CODE    02CBH     0011H     UNIT         ?CO?QIANGDA
+
+
+
+OVERLAY MAP OF MODULE:   qiangda (QIANGDA)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?QIANGDA
+  +--> ?C_INITSEG
+
+?PR?MAIN?QIANGDA               -----    -----
+  +--> ?PR?KEYSCAN?QIANGDA
+  +--> ?PR?_DISPLAY?QIANGDA
+
+?PR?KEYSCAN?QIANGDA            -----    -----
+  +--> ?PR?_DELAY?QIANGDA
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/26/2012  15:05:24  PAGE 2
+
+
+
+?PR?_DISPLAY?QIANGDA           001AH    0006H
+  +--> ?CO?QIANGDA
+  +--> ?PR?_DELAY?QIANGDA
+
+
+
+SYMBOL TABLE OF MODULE:  qiangda (QIANGDA)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        QIANGDA
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  B:0020H.0       PUBLIC        begin
+  B:0020H.1       PUBLIC        clear
+  C:02CBH         PUBLIC        table
+  D:0008H         PUBLIC        a0
+  D:0009H         PUBLIC        b0
+  D:000AH         PUBLIC        c0
+  D:000CH         PUBLIC        d0
+  D:000EH         PUBLIC        e0
+  D:0010H         PUBLIC        f0
+  B:00A0H.3       PUBLIC        beep
+  C:000EH         PUBLIC        main
+  B:00A0H.6       PUBLIC        dula
+  B:00A0H.7       PUBLIC        wela
+  D:0089H         PUBLIC        TMOD
+  B:0020H.2       PUBLIC        end
+  D:0012H         PUBLIC        temp
+  D:0013H         PUBLIC        wei
+  B:00A8H.1       PUBLIC        ET0
+  D:0014H         PUBLIC        key
+  D:008CH         PUBLIC        TH0
+  D:0015H         PUBLIC        daojishi
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  C:0223H         PUBLIC        _display
+  D:0016H         PUBLIC        pp
+  C:02B8H         PUBLIC        time0
+  D:0018H         PUBLIC        j
+  D:0019H         PUBLIC        k
+  C:028DH         PUBLIC        _delay
+  C:00E6H         PUBLIC        keyscan
+  B:0020H.3       PUBLIC        fangui
+  C:0287H         SYMBOL        L?0051
+  -------         PROC          L?0050
+  -------         ENDPROC       L?0050
+  C:0287H         SYMBOL        L?0051
+  -------         PROC          _DELAY
+  D:0007H         SYMBOL        i
+  C:028DH         LINE#         33
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/26/2012  15:05:24  PAGE 3
+
+
+  C:028DH         LINE#         34
+  C:028DH         LINE#         35
+  C:0296H         LINE#         36
+  C:02A0H         LINE#         37
+  -------         ENDPROC       _DELAY
+  -------         PROC          _DISPLAY
+  D:0007H         SYMBOL        a
+  D:0005H         SYMBOL        b
+  D:0003H         SYMBOL        c
+  D:001DH         SYMBOL        d
+  D:001EH         SYMBOL        e
+  D:001FH         SYMBOL        f
+  C:0223H         LINE#         38
+  C:0223H         LINE#         39
+  C:0223H         LINE#         40
+  C:0225H         LINE#         41
+  C:022CH         LINE#         42
+  C:022EH         LINE#         43
+  C:0230H         LINE#         45
+  C:0232H         LINE#         46
+  C:0235H         LINE#         47
+  C:0235H         LINE#         48
+  C:0235H         LINE#         49
+  C:0238H         LINE#         51
+  C:023CH         LINE#         52
+  C:023EH         LINE#         53
+  C:0240H         LINE#         55
+  C:0243H         LINE#         56
+  C:0243H         LINE#         57
+  C:0243H         LINE#         58
+  C:0246H         LINE#         60
+  C:024AH         LINE#         61
+  C:024CH         LINE#         62
+  C:024EH         LINE#         64
+  C:0251H         LINE#         65
+  C:0251H         LINE#         66
+  C:0251H         LINE#         67
+  C:0254H         LINE#         69
+  C:0259H         LINE#         70
+  C:025BH         LINE#         71
+  C:025DH         LINE#         73
+  C:0260H         LINE#         74
+  C:0260H         LINE#         75
+  C:0260H         LINE#         76
+  C:0263H         LINE#         78
+  C:0268H         LINE#         79
+  C:026AH         LINE#         80
+  C:026CH         LINE#         82
+  C:026FH         LINE#         83
+  C:026FH         LINE#         84
+  C:026FH         LINE#         85
+  C:0272H         LINE#         87
+  C:0277H         LINE#         88
+  C:0279H         LINE#         89
+  C:027BH         LINE#         91
+  C:027EH         LINE#         92
+  C:0280H         LINE#         93
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/26/2012  15:05:24  PAGE 4
+
+
+  C:0282H         LINE#         94
+  -------         ENDPROC       _DISPLAY
+  -------         PROC          KEYSCAN
+  C:00E6H         LINE#         97
+  C:00E6H         LINE#         98
+  C:00E6H         LINE#         99
+  C:00E9H         LINE#         100
+  C:00ECH         LINE#         101
+  C:00EFH         LINE#         102
+  C:00F5H         LINE#         103
+  C:00F5H         LINE#         104
+  C:00FAH         LINE#         105
+  C:0100H         LINE#         106
+  C:0100H         LINE#         107
+  C:0103H         LINE#         108
+  C:0115H         LINE#         109
+  C:0115H         LINE#         110
+  C:0115H         LINE#         111
+  C:0118H         LINE#         112
+  C:011AH         LINE#         113
+  C:011CH         LINE#         115
+  C:011CH         LINE#         116
+  C:011FH         LINE#         117
+  C:0121H         LINE#         118
+  C:0123H         LINE#         120
+  C:0123H         LINE#         121
+  C:0126H         LINE#         122
+  C:0128H         LINE#         123
+  C:012AH         LINE#         125
+  C:012AH         LINE#         126
+  C:012DH         LINE#         127
+  C:012FH         LINE#         128
+  C:012FH         LINE#         129
+  C:012FH         LINE#         130
+  C:0135H         LINE#         131
+  C:0135H         LINE#         132
+  C:0138H         LINE#         133
+  C:013BH         LINE#         134
+  C:013DH         LINE#         135
+  C:013FH         LINE#         136
+  C:0141H         LINE#         137
+  C:0141H         LINE#         138
+  C:0141H         LINE#         139
+  C:0144H         LINE#         140
+  C:0147H         LINE#         141
+  C:014AH         LINE#         142
+  C:0150H         LINE#         143
+  C:0150H         LINE#         144
+  C:0155H         LINE#         145
+  C:015BH         LINE#         146
+  C:015BH         LINE#         147
+  C:015EH         LINE#         148
+  C:0170H         LINE#         149
+  C:0170H         LINE#         150
+  C:0170H         LINE#         151
+  C:0173H         LINE#         152
+  C:0175H         LINE#         153
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/26/2012  15:05:24  PAGE 5
+
+
+  C:0177H         LINE#         155
+  C:0177H         LINE#         156
+  C:017AH         LINE#         157
+  C:017CH         LINE#         158
+  C:017EH         LINE#         160
+  C:017EH         LINE#         161
+  C:0180H         LINE#         163
+  C:0182H         LINE#         165
+  C:0182H         LINE#         166
+  C:0184H         LINE#         168
+  C:0184H         LINE#         169
+  C:0184H         LINE#         170
+  C:018AH         LINE#         171
+  C:018AH         LINE#         172
+  C:018DH         LINE#         173
+  C:0190H         LINE#         174
+  C:0192H         LINE#         175
+  C:0194H         LINE#         176
+  C:0196H         LINE#         177
+  C:0196H         LINE#         178
+  C:0196H         LINE#         179
+  -------         ENDPROC       KEYSCAN
+  -------         PROC          MAIN
+  C:000EH         LINE#         181
+  C:000EH         LINE#         182
+  C:000EH         LINE#         183
+  C:0011H         LINE#         185
+  C:0014H         LINE#         186
+  C:0017H         LINE#         187
+  C:0019H         LINE#         188
+  C:001BH         LINE#         189
+  C:001BH         LINE#         190
+  C:001BH         LINE#         191
+  C:001EH         LINE#         192
+  C:0021H         LINE#         193
+  C:0021H         LINE#         194
+  C:0024H         LINE#         195
+  C:0024H         LINE#         196
+  C:0026H         LINE#         200
+  C:002EH         LINE#         201
+  C:002EH         LINE#         202
+  C:0032H         LINE#         203
+  C:0034H         LINE#         205
+  C:0034H         LINE#         207
+  C:003AH         LINE#         208
+  C:003EH         LINE#         209
+  C:0040H         LINE#         213
+  C:004FH         LINE#         214
+  C:004FH         LINE#         215
+  C:0051H         LINE#         216
+  C:0053H         LINE#         219
+  C:0058H         LINE#         220
+  C:0058H         LINE#         221
+  C:0058H         LINE#         223
+  C:005AH         LINE#         225
+  C:005AH         LINE#         226
+  C:005EH         LINE#         227
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/26/2012  15:05:24  PAGE 6
+
+
+  C:005EH         LINE#         228
+  C:0071H         LINE#         229
+  C:0071H         LINE#         230
+  C:0076H         LINE#         231
+  C:007BH         LINE#         232
+  C:0083H         LINE#         233
+  C:008BH         LINE#         234
+  C:0091H         LINE#         235
+  C:0091H         LINE#         237
+  C:0093H         LINE#         238
+  C:0095H         LINE#         239
+  C:0095H         LINE#         240
+  C:0095H         LINE#         241
+  C:0098H         LINE#         242
+  C:0098H         LINE#         243
+  C:00AFH         LINE#         244
+  C:00C6H         LINE#         245
+  C:00C6H         LINE#         246
+  C:00D8H         LINE#         247
+  C:00DEH         LINE#         248
+  C:00DEH         LINE#         249
+  C:00E0H         LINE#         250
+  C:00E3H         LINE#         251
+  C:00E3H         LINE#         253
+  -------         ENDPROC       MAIN
+  -------         PROC          TIME0
+  C:02B8H         LINE#         256
+  C:02BAH         LINE#         257
+  C:02BDH         LINE#         258
+  C:02C0H         LINE#         259
+  C:02C8H         LINE#         260
+  -------         ENDPROC       TIME0
+  -------         ENDMOD        QIANGDA
+
+Program Size: data=33.4 xdata=0 code=724
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

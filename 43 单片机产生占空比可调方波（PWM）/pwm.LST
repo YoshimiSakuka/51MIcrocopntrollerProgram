@@ -1,0 +1,121 @@
+C51 COMPILER V8.02   PWM                                                                   12/27/2012 10:18:45 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE PWM
+OBJECT MODULE PLACED IN pwm.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE pwm.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：本程序为用单片机制作的占空比均匀间隔可调PWM发生器。占空比可调间隔
+   4                                  为0.1。即可取得占空比为0%，10%，20%……90%到100%的PWM波。
+   5                                  该波的频率固定为1KH（周期1000微秒）。
+   6                                  SY-1学习板上的操作键：
+   7                                                  S2----占空比加                  S3----占空比减
+   8          *  公司：思源电子科技有限公司
+   9          *  编写：思源
+  10          *  日期：2012-12-25
+  11          *   QQ : 936559219
+  12          *  晶振:11.0592MHZ
+  13          ******************************************************************/
+  14          
+  15          #include<reg52.h>
+  16          
+  17          #define uint unsigned int 
+  18          uint pp;
+  19          char num=2,dis;
+  20          sbit pwm=P1^0;
+  21          sbit s2=P3^4;
+  22          sbit s3=P3^5;
+  23          
+  24          sbit dula=P2^6;
+  25          sbit wela=P2^7;
+  26          
+  27          unsigned char code table[]=
+  28          {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,
+  29          0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71,0x00};
+  30          
+  31          void keyscan()
+  32          {
+  33   1              if(s2==0)
+  34   1              {
+  35   2                      while(!s2);
+  36   2                      num++;
+  37   2                      if(num==11)
+  38   2                              num=10;
+  39   2                      dis=num;
+  40   2              }
+  41   1              if(s3==0)
+  42   1              {
+  43   2                      while(!s3);
+  44   2                      num--;
+  45   2                      if(num==-1)
+  46   2                              num=0;
+  47   2                      dis=num;
+  48   2              }
+  49   1      }
+  50          
+  51          void display(a)
+  52          {
+  53   1         dula=0;
+  54   1         P0=table[a];
+  55   1         dula=1;
+C51 COMPILER V8.02   PWM                                                                   12/27/2012 10:18:45 PAGE 2   
+
+  56   1         dula=0;
+  57   1         
+  58   1         wela=0;
+  59   1         P0=0xfe;
+  60   1         wela=1;
+  61   1         wela=0;   
+  62   1      }
+  63          
+  64          void main()
+  65          {
+  66   1              TMOD=0x01;               //模式设置，00000001，可见采用的是定时器0，工作与模式1（M1=0，M0=1）。
+  67   1              TR0=1;                   //打开定时器
+  68   1              TH0=0Xff;                //定时器设置，每隔100微秒发起一次中断。
+  69   1              TL0=0Xa4;
+  70   1              ET0=1;                   //开定时器0中断
+  71   1              EA=1;                    //开总中断
+  72   1              while(1)
+  73   1              {
+  74   2                      keyscan();
+  75   2                      if((num!=0)&&(num!=10)) //对于占空比为0和100%这两种极端情况，最好分离出，单独考虑
+  76   2                      {
+  77   3                              if(pp<=num)
+  78   3                                      pwm=1;
+  79   3                              else
+  80   3                                      pwm=0;
+  81   3                      }
+  82   2                      else if(num==0) //当占空比为0
+  83   2                              pwm=0;
+  84   2                      else
+  85   2                              pwm=1;
+  86   2                      if(pp==10)              //当占空比为100%
+  87   2                              pp=0;
+  88   2              display(num);//显示num当前值，占空比为num/10。
+  89   2              }
+  90   1      }
+  91          
+  92          void time0() interrupt 1
+  93          {       TH0=0Xff;
+  94   1              TL0=0Xa4;
+  95   1              pp++;
+  96   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    172    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

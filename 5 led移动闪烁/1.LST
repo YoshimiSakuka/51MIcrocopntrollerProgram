@@ -1,0 +1,62 @@
+C51 COMPILER V8.02   1                                                                     12/25/2011 11:44:41 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 1
+OBJECT MODULE PLACED IN 1.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE 1.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：使八位LED逐位移动并不断循环
+   4          *  公司：思源电子科技有限公司
+   5          *  编写：思源
+   6          *  日期：2012-12-25
+   7          *   QQ : 936559219
+   8          *  晶振:11.0592MHZ
+   9          ******************************************************************/
+  10          
+  11          #include <reg51.h>
+  12          #include <intrins.h>  //这个头文件是这个方法的核心，它包含了逐步移位函数功能
+  13                                                    //即程序中的_crol_(P1,y)
+  14          
+  15          sbit led=P1^0;
+  16          
+  17          void delay(unsigned int i)
+  18          {
+  19   1              unsigned int j;
+  20   1              unsigned char k;
+  21   1              for(j=i;j>0;j--)
+  22   1                      for(k=125;k>0;k--);
+  23   1      }
+  24          
+  25          void main()
+  26          {       P1=0xfe;
+  27   1              delay(1000);
+  28   1              while(1)
+  29   1              {
+  30   2              //      unsigned char m;
+  31   2                      //P1=0xfe;
+  32   2              //      delay(1000);
+  33   2              //      for(m=7;m>0;m--)
+  34   2                      {
+  35   3                              P1=_crol_(P1,1);   //P1逐步左移一位。
+  36   3                              delay(1000);
+  37   3                      }
+  38   2              }
+  39   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     53    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

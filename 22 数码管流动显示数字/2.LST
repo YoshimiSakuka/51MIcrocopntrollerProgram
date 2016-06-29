@@ -1,0 +1,65 @@
+C51 COMPILER V8.02   2                                                                     12/26/2012 14:50:01 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 2
+OBJECT MODULE PLACED IN 2.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE 2.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：让SY-1 实验板的六个数码管流动地显示数字3
+   4          *  公司：思源电子科技有限公司
+   5          *  编写：思源
+   6          *  日期：2012-12-25
+   7          *   QQ : 936559219
+   8          *  晶振:11.0592MHZ
+   9          ******************************************************************/
+  10          #include <reg51.h>
+  11          
+  12          sbit dula=P2^6;         //段选信号的锁存器控制
+  13          sbit wela=P2^7;         //位选信号的锁存器控制
+  14          
+  15          unsigned char code table[]={0xfe,0xfd,0xfb,0xf7,0xef,0xdf};
+  16                                                          //数码管各位的码表
+  17          void delay(unsigned int i)
+  18          {
+  19   1              unsigned int m,n;
+  20   1              for(m=i;m>0;m--)
+  21   1                      for(n=90;n>0;n--);
+  22   1      }
+  23          
+  24          void main()
+  25          {
+  26   1              unsigned char num;
+  27   1              while(1)
+  28   1              {
+  29   2                      for(num=0;num<6;num++)
+  30   2                      {
+  31   3                              P0=table[num];     
+  32   3                              wela=1;
+  33   3                              wela=0;
+  34   3      
+  35   3                              P0=0x4f;          //数字“3”的代码
+  36   3                              dula=1;
+  37   3                              dula=0;
+  38   3                              delay(1000);
+  39   3                      }
+  40   2              }
+  41   1      }
+  42          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     63    ----
+   CONSTANT SIZE    =      6    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

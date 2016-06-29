@@ -1,0 +1,61 @@
+C51 COMPILER V8.02   TIMER                                                                 12/26/2012 15:22:31 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE TIMER
+OBJECT MODULE PLACED IN timer.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE timer.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：本程序为定时器的基本驱动示例，定时器工作于方式1。
+   4                                  下载程序后，隔三秒钟，第一个发光二极管被点
+   5          *  公司：思源电子科技有限公司
+   6          *  编写：思源
+   7          *  日期：2012-12-25
+   8          *   QQ : 936559219
+   9          *  晶振:11.0592MHZ
+  10          ******************************************************************/
+  11          #include<reg52.h>
+  12          
+  13          #define uint unsigned int 
+  14          uint pp;
+  15          
+  16          sbit led=P1^0;
+  17          
+  18          
+  19          void main()
+  20          {
+  21   1              TMOD=0x01;               //模式设置，00000001，可见采用的是定时器0，工作与模式1（M1=0，M0=1）。
+  22   1              TR0=1;                   //打开定时器
+  23   1              TH0=0Xff;                //定时器设置，每隔100微秒发起一次中断。
+  24   1              TL0=0Xa4;
+  25   1              ET0=1;                   //开定时器0中断
+  26   1              EA=1;                    //开总中断
+  27   1              while(1)
+  28   1              {
+  29   2                      if(pp==30000)   //时隔3s后，led被点亮。
+  30   2                              led=0;
+  31   2              }
+  32   1      }
+  33          
+  34          void time0() interrupt 1
+  35          {       TH0=0Xff;
+  36   1              TL0=0Xa4;
+  37   1              pp++;
+  38   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     48    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

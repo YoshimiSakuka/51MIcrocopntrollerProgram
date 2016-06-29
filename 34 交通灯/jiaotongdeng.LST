@@ -1,0 +1,152 @@
+C51 COMPILER V8.02   JIAOTONGDENG                                                          04/08/2013 10:50:05 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE JIAOTONGDENG
+OBJECT MODULE PLACED IN jiaotongdeng.OBJ
+COMPILER INVOKED BY: D:\下载与应用\文件安装\新建文件夹 (2)\C51\BIN\C51.EXE jiaotongdeng.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：模拟交通灯显示。
+   4                            其中，红灯与绿灯显示时间均为50s，中间的黄灯显示时间为15s。
+   5                            绿灯用八位发光二极管流动闪烁作代表；
+   6                            红灯用八位发光二极管全亮作代表；
+   7                            黄灯用八位发光二极管全亮全灭闪烁作代表。
+   8                            刚开始显示的为绿灯。
+   9                            显示顺序：绿--黄--红--黄--绿--黄--红--………………
+  10          *  公司：思源电子科技有限公司
+  11          *  编写：思源
+  12          *  日期：2012-12-25
+  13          *   QQ : 936559219
+  14          *  晶振:11.0592MHZ
+  15          ******************************************************************/
+  16          
+  17          #include<reg51.h>
+  18          
+  19          #define uchar unsigned char
+  20          #define uint unsigned int
+  21          
+  22          sbit dula=P2^6;
+  23          sbit wela=P2^7;
+  24          sbit beep=P2^3;
+  25          
+  26          unsigned int pp;
+  27          unsigned char code table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,
+  28                                  0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};
+  29          uchar j,k,l=255;
+  30          uchar a1,a0;
+  31          uchar shijian,deng=2;
+  32          void delay(unsigned int i)
+  33          {
+  34   1        for(j=i;j>0;j--)
+  35   1          for(k=125;k>0;k--);
+  36   1      }
+  37          
+  38          void display(unsigned char sh_c,unsigned char g_c)
+  39          {
+  40   1         dula=0;
+  41   1         P0=table[sh_c];
+  42   1         dula=1;
+  43   1         dula=0;
+  44   1         
+  45   1         wela=0;
+  46   1         P0=0xfe;
+  47   1         wela=1;
+  48   1         wela=0;
+  49   1         delay(5);
+  50   1         
+  51   1         P0=table[g_c];
+  52   1         dula=1;
+  53   1         dula=0;
+  54   1         
+  55   1         P0=0xfd;
+C51 COMPILER V8.02   JIAOTONGDENG                                                          04/08/2013 10:50:05 PAGE 2   
+
+  56   1         wela=1;
+  57   1         wela=0;
+  58   1         delay(5);
+  59   1      }
+  60          
+  61          void main()
+  62          {
+  63   1              TMOD=0x01;
+  64   1              TR0=1;
+  65   1              TH0=(65536-46080)/256;// 由于晶振为11.0592,故所记次数应为46080，计时器每隔50000微秒发起一次中断。
+  66   1              TL0=(65536-46080)%256;//46080的来历，为50000*11.0592/12
+  67   1              ET0=1;
+  68   1              EA=1;
+  69   1              while(1)
+  70   1              {       
+  71   2                      if(shijian==0)
+  72   2                      {
+  73   3                              switch(deng)
+  74   3                              {
+  75   4                                      case 0: shijian=50;               //红灯
+  76   4                                                      deng=1;
+  77   4                                                      break;
+  78   4                                      case 1: shijian=15;               //黄灯
+  79   4                                                      deng=2;
+  80   4                                                      break;
+  81   4                                      case 2: shijian=50;               //绿灯
+  82   4                                                      deng=3;
+  83   4                                                      break;
+  84   4                                      case 3: shijian=15;               //黄灯
+  85   4                                                      deng=0;
+  86   4                                                      break;
+  87   4                              }
+  88   3                      }
+  89   2                      if(pp==20)
+  90   2                      {       pp=0;
+  91   3                              shijian--;
+  92   3                      }
+  93   2                      a0=shijian%10;
+  94   2                      a1=shijian/10;
+  95   2                      display(a1,a0);
+  96   2                      switch(deng)
+  97   2                      {
+  98   3                              case 1: P1=0X00;                         //红灯
+  99   3                                              break;
+ 100   3                              case 2:                         //黄灯
+ 101   3                                              if(shijian%2==0)
+ 102   3                                              P1=0x00;
+ 103   3                                              if(shijian%2==1)
+ 104   3                                              P1=0xff;
+ 105   3                                              break;
+ 106   3                              case 3:                 //绿灯
+ 107   3                                              if(shijian%2==0)
+ 108   3                                              P1=0x55;
+ 109   3                                              if(shijian%2==1)
+ 110   3                                              P1=0xaa;
+ 111   3                                              break;
+ 112   3                              case 0: if(shijian%2==0)          //黄灯
+ 113   3                                              P1=0x00;
+ 114   3                                              if(shijian%2==1)
+ 115   3                                              P1=0xff;
+ 116   3                                              break;  
+ 117   3                      }
+C51 COMPILER V8.02   JIAOTONGDENG                                                          04/08/2013 10:50:05 PAGE 3   
+
+ 118   2              }
+ 119   1      }
+ 120          
+ 121          void time0() interrupt 1
+ 122          {       TH0=(65536-46080)/256;
+ 123   1              TL0=(65536-46080)%256;
+ 124   1              pp++;
+ 125   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    271    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

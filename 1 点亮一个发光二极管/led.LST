@@ -1,0 +1,43 @@
+C51 COMPILER V9.01   LED                                                                   04/24/2016 21:31:14 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: E:\Program Files\Keil_v5\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /**********************SY-1ÊµÑé¿ª·¢°åÀý³Ì************************
+   2          *  Æ½Ì¨£ºSY-1+STC89C52
+   3          *  Ãû³Æ£ºµãÁÁÒ»¸ö·¢¹â¶þ¼«¹Ü
+   4          *  ¹«Ë¾£ºË¼Ô´µç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾
+   5          *  ±àÐ´£ºË¼Ô´
+   6          *  ÈÕÆÚ£º2012-12-25
+   7          *   QQ : 936559219
+   8          *  ¾§Õñ:11.0592MHZ
+   9          ******************************************************************/
+  10          
+  11          #include <reg51.h> //°üº¬Í·ÎÄ¼þ£¬ÔÚ¡°reg51.h¡±ÉÏÓÒ¼üµ¥»÷£¬²¢´ò¿ª£¬¿ÉÒÔ¿´µ½ËüÀïÃæµÄ¶¨Òå
+  12                             //µ±È»Ò²¿ÉÒÔ¸Ä³É reg52.h  STC.H ¹¦ÄÜÒ»ÑùµÄ£¬Ö»ÊÇ¶¨ÒåµÄIO¿ÚÓÐÒ»µãÇø±ð£¬51µ¥Æ¬»ú¿ÉÒÔÍ¨ÓÃ¡
+             -£
+  13          sbit led=P2^7;  //¶¨ÒåÒ»¸öLED ÎªP1.0 IO¿Ú
+  14          
+  15          void main()     //CÓïÑÔÖ÷º¯Êý
+  16          {  
+  17   1        led=0;   //µ¥Æ¬»úIO P1.0½ÅÊä³öÒ»¸öµÍµçÆ½£¬µãÁÁ·¢¹â¹Ü¡£ ¸ßµçÆ½Îª5V µÍµçÆ½Îª0¡£
+  18   1        while(1);
+  19   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      4    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

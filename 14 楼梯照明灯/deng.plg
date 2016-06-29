@@ -1,0 +1,20 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\营销资料\慧净电子资料\5、步骤5 相关例程\1、配套C实验例程100多个\【实验14】楼梯照明灯\deng.uv2
+Project File Date:  12/26/2012
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+Program Size: data=9.3 xdata=0 code=64
+creating hex file from "deng"...
+"deng" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling deng.c...
+linking...
+Program Size: data=9.3 xdata=0 code=64
+creating hex file from "deng"...
+"deng" - 0 Error(s), 0 Warning(s).

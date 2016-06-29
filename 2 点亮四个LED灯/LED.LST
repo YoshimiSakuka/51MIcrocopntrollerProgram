@@ -1,0 +1,50 @@
+C51 COMPILER V8.02   LED                                                                   12/25/2011 11:33:57 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN LED.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE LED.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：用逐位赋值的方法点亮第一、第三、第五、第七个发光二极管
+   4          *  公司：思源电子科技有限公司
+   5          *  编写：思源
+   6          *  日期：2012-12-25
+   7          *  QQ : 936559219
+   8          *  晶振:11.0592MHZ
+   9          ******************************************************************/
+  10          
+  11          
+  12          #include <reg51.h> //包含头文件，在“reg51.h”上右键单击，并打开，可以看到它里面的定义
+  13          
+  14          sbit led1=P1^0;  //第一个led是和P1^0口连接的。
+  15          sbit led3=P1^2;
+  16          sbit led5=P1^4;
+  17          sbit led7=P1^6;
+  18          
+  19          void main()
+  20          {
+  21   1              led1=0;    //参照电路图可知，P1^0为低电平，可以让led1点亮。
+  22   1              led3=0;
+  23   1              led5=0;
+  24   1              led7=0;
+  25   1              while(1);//此处设置一个死循环，让程序停留在这里，防止跑飞。
+  26   1      }
+  27          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     10    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

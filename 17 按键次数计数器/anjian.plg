@@ -1,0 +1,15 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\营销资料\慧净电子资料\5、步骤5 相关例程\1、配套C实验例程100多个\【实验21】按键次数计数器\anjian.uv2
+Project File Date:  02/15/2012
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling anjian.c...
+linking...
+Program Size: data=27.0 xdata=0 code=1170
+creating hex file from "anjian"...
+"anjian" - 0 Error(s), 0 Warning(s).

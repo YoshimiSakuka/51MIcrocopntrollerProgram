@@ -1,0 +1,58 @@
+C51 COMPILER V8.02   2                                                                     12/25/2011 11:46:41 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 2
+OBJECT MODULE PLACED IN 2.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE 2.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：使八位LED逐位移动并不断循环，该方法采用逐个查表赋值的方法
+   4          *  公司：思源电子科技有限公司
+   5          *  编写：思源
+   6          *  日期：2012-12-25
+   7          *   QQ : 936559219
+   8          *  晶振:11.0592MHZ
+   9          ******************************************************************/
+  10          #include <reg51.h>
+  11          
+  12          
+  13          
+  14          unsigned char table[]={0xfe,0xfd,0xfb,0xf7,0xef,0xdf,0xbf,0x7f};
+  15          
+  16          void delay(unsigned int i)
+  17          {
+  18   1              unsigned int j;
+  19   1              unsigned char k;
+  20   1              for(j=i;j>0;j--)
+  21   1                      for(k=125;k>0;k--);
+  22   1      }
+  23          
+  24          void main()
+  25          {
+  26   1              while(1)
+  27   1              {
+  28   2                      unsigned char m;
+  29   2                      for(m=0;m<8;m++)
+  30   2                      {
+  31   3                              P1=table[m];
+  32   3                              delay(2000);
+  33   3                      }
+  34   2              }
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     50    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

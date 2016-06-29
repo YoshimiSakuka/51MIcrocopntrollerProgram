@@ -1,0 +1,69 @@
+C51 COMPILER V8.02   4                                                                     12/26/2012 14:54:37 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 4
+OBJECT MODULE PLACED IN 4.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE 4.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：让SY-1 实验板的六位数码管轮流显示数字0到5
+   4          *  公司：思源电子科技有限公司
+   5          *  编写：思源
+   6          *  日期：2012-12-25
+   7          *   QQ : 936559219
+   8          *  晶振:11.0592MHZ
+   9          ******************************************************************/
+  10          #include <reg51.h>
+  11          
+  12          sbit dula=P2^6;         //段选信号的锁存器控制
+  13          sbit wela=P2^7;         //位选信号的锁存器控制
+  14          
+  15          unsigned char code wei[]={0xfe,0xfd,0xfb,0xf7,0xef,0xdf};
+  16                                                          //数码管各位的码表
+  17          unsigned char code duan[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d};
+  18                                                          //0-5的码表
+  19          void delay(unsigned int i)
+  20          {
+  21   1              unsigned int m,n;
+  22   1              for(m=i;m>0;m--)
+  23   1                      for(n=90;n>0;n--);
+  24   1      }
+  25          
+  26          void main()
+  27          {
+  28   1              unsigned char num;
+  29   1              while(1)
+  30   1              {
+  31   2                      for(num=0;num<6;num++)
+  32   2                      {
+  33   3                              P0=wei[num];       
+  34   3                              wela=1;
+  35   3                              wela=0;
+  36   3      
+  37   3                              P0=duan[num];     
+  38   3                              dula=1;
+  39   3                              dula=0;
+  40   3                              delay(1000);
+  41   3                       }
+  42   2              }
+  43   1      }
+  44          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     67    ----
+   CONSTANT SIZE    =     12    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V8.02   4                                                                     12/26/2012 14:54:37 PAGE 2   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

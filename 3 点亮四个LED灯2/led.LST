@@ -1,0 +1,40 @@
+C51 COMPILER V8.02   LED                                                                   12/25/2011 11:36:54 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：用总线操作的方法点亮第一、第三、第五、第七个发光二极管
+   4          *  公司：思源电子科技有限公司
+   5          *  编写：思源
+   6          *  日期：2012-12-25
+   7          *   QQ : 936559219
+   8          *  晶振:11.0592MHZ
+   9          ******************************************************************/
+  10          
+  11          #include <reg51.h> //包含头文件，在“reg51.h”上右键单击，并打开，可以看到它里面的定义
+  12          
+  13          void main()
+  14          {
+  15   1              P1=0XAA;  //对P1口的八位一起操作，高低电平分配为10101010，为0的位对应的二极管被点亮。
+  16   1              while(1);
+  17   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      5    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

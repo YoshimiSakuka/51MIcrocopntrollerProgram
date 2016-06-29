@@ -1,0 +1,90 @@
+C51 COMPILER V8.02   MENLING                                                               12/26/2012 15:02:33 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE MENLING
+OBJECT MODULE PLACED IN menling.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE menling.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：模拟简易门铃；且有关闭门铃功能。
+   4                            当按下SY-1上的S2键后，蜂鸣器会发出十次短暂的“嘟嘟”声作为呼叫。
+   5                            S3用于关闭或者打开门铃。
+   6                            当门铃处于关闭时，按下S2不会有呼叫效果。
+   7          *  公司：思源电子科技有限公司
+   8          *  编写：思源
+   9          *  日期：2012-12-25
+  10          *   QQ : 936559219
+  11          *  晶振:11.0592MHZ
+  12          ******************************************************************/
+  13          #include<reg52.h>
+  14          
+  15          #define uchar unsigned char 
+  16          uchar k,ok=1;//默认开机后，门铃开。
+  17          unsigned int j;
+  18          sbit s2=P3^4;
+  19          sbit s3=P3^5;
+  20          sbit beep=P2^3;
+  21          
+  22          void delay(unsigned int i)
+  23          {
+  24   1              for(j=i;j>0;j--)
+  25   1              for(k=125;k>0;k--);
+  26   1      }
+  27          
+  28          void main()
+  29          {
+  30   1              while(1)
+  31   1              {
+  32   2                      if(ok==1)
+  33   2                      {
+  34   3                              if(s3==0)
+  35   3                              {
+  36   4                                      while(s3==0);
+  37   4                                      ok=0;
+  38   4                               }
+  39   3                      }
+  40   2                      else
+  41   2                      {
+  42   3                              if(s3==0)
+  43   3                              {
+  44   4                                      while(s3==0);
+  45   4                                      ok=1;
+  46   4                               }
+  47   3                      }
+  48   2                      if((s2==0)&(ok==1))
+  49   2                      {       uchar i=5;
+  50   3                              for(i=5;i>0;i--)
+  51   3                              {
+  52   4                                      beep=0;
+  53   4                                      delay(800);
+  54   4                                      beep=1;
+  55   4                                      delay(800);
+C51 COMPILER V8.02   MENLING                                                               12/26/2012 15:02:33 PAGE 2   
+
+  56   4                                      beep=0;
+  57   4                                      delay(1200);
+  58   4                                      beep=1;
+  59   4                                      delay(1300);
+  60   4                              }
+  61   3                      }
+  62   2              }
+  63   1      }
+  64          
+  65          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    128    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

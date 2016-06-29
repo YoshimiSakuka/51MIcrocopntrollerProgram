@@ -1,0 +1,446 @@
+C51 COMPILER V8.02   CLOCKDINGSHI                                                          12/27/2012 10:16:27 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE CLOCKDINGSHI
+OBJECT MODULE PLACED IN clockdingshi.OBJ
+COMPILER INVOKED BY: D:\µ¥Æ¬»ú\Keil Uvision3ÆÆ½â°æ\C51\BIN\C51.EXE clockdingshi.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1ÊµÑé¿ª·¢°åÀý³Ì************************
+   2          *  Æ½Ì¨£ºSY-1+STC89C52
+   3          *  Ãû³Æ£º£¨ÖÓ±í£¬¿É¶¨Ê±£©
+   4          *  ¹«Ë¾£ºË¼Ô´µç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾
+   5          *  ±àÐ´£ºË¼Ô´
+   6          *  ÈÕÆÚ£º2012-12-25
+   7          *   QQ : 936559219
+   8          *  ¾§Õñ:11.0592MHZ
+   9          ******************************************************************/
+  10          //        S16 ½ÃÕýÊ±¼ä          S17 ¼ÌÐø¼ÆÊ±     S18 ÉèÖÃ¶¨Ê±
+  11          //        S19 È¡Ïû¶¨Ê±          S6--S15   ·Ö±ðÎªÊý×Ö¼ü0--9
+  12          /********************************************************************
+  13          ¸ÃÀý³ÌÎªÊýÂë¹ÜÏÔÊ¾¿Éµ÷ÇÒ¿É¶¨Ê±ÖÓ±í£¬ÓÃµ½SY-1¿ª·¢°åÖÐ¾ØÕó¼üÅÌµÄÉÏÈýÅÅÓëµÚËÄÅÅÇ°Á½¸ö°´¼ü¡£
+  14          
+  15          ÈôÒª¸ü¸ÄÊ±ÖÓ³õÊ¼Öµ£¨¼´Ê±ÖÓÐ£×¼£©£¬¿ÉÏÈ°´ÏÂ¾ØÕó¼üÅÌÖÐµÄS16¼ü£¨µÚÈýÅÅµÚÈýÁÐ£©£¬´ËÊ±Ê±ÖÓ»áÔÝÍ£¡£
+  16          È»ºó°´S6---S15ÖÐµÄ¼üÐÞ¸Ä½ÃÕýµ±Ç°Öµ£¬S6--S15·Ö±ðÏÈºó¶ÔÓ¦Êý×Ö0µ½9¡£
+  17          ½ÃÕýÍêºó£¬°´ÏÂS17£¨µÚÈýÅÅ×îºóÒ»¸ö£©£¬Ê±ÖÓ¿É¼ÌÐø¹¤×÷¡£
+  18          ÈôÒªÉèÖÃ¶¨Ê±Ê±¼ä£¬¿ÉÏÈ°´ÏÂS18£¨µÚËÄÅÅµÚÒ»¸ö£©£¬È»ºó°´Êý×Ö¼üS6--S15ÉèÖÃ¶¨Ê±Ê±¼ä£¨ÉèÖÃË³ÐòÊÇÓÉ¸ßÎ»µ½µÍÎ»µÄË³
+             -Ðò£©£¬
+  19          ÉèÖÃÍê¶¨Ê±ºó£¬°´ÏÂS17¿É»Ö¸´µ½Õý³£¼ÆÊ±×´Ì¬
+  20          ¶¨Ê±Ê±¼äµ½£¬·äÃùÆ÷»á³ÖÐøÏìÒ»·ÖÖÓ±¨Ê±¡£
+  21          ÈôÒªÈ¡Ïû¶¨Ê±£¬»òÕß·äÃùÆ÷ÏìÊ±Ïë¶ÔÆä¹Ø±Õ£¬¿ÉÒÔ°´ÏÂS19¹¦ÄÜ¼ü¡£
+  22          ×¢Òâ¾§ÕñÐèÎª11.0592M¡£
+  23          ÈôÎªÆäËûÊýÖµ¾§Õñ£¬ÇëºÏÀí¸Ä±äTH0ÓëTL0²ÎÊýÖµ£¬·ñÔò¼ÆÊ±»áÓÐºÜ´óÎó²î ¡£
+  24          **********************************************************************************************************
+             -*************/
+  25          #include<reg51.h>
+  26          
+  27          #define uchar unsigned char
+  28          
+  29          sbit dula=P2^6;
+  30          sbit wela=P2^7;
+  31          sbit beep=P2^3;
+  32          unsigned char j,k,a1,a0,b1,b0,c1,c0,s,f,m,key=10,temp,qq;
+  33          uchar shi20,shi10,fen20,fen10,miao20,miao10,ok=1,wei,dingshi,change,yidingshi;
+  34          uchar baoshi,baoshijieshu;
+  35          unsigned int pp;
+  36          unsigned char code table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,
+  37                                  0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};
+  38          
+  39          void delay(unsigned char i)
+  40          {
+  41   1        for(j=i;j>0;j--)
+  42   1          for(k=125;k>0;k--);
+  43   1      }
+  44          void display(uchar shi2,uchar shi1,uchar fen2,uchar fen1,uchar miao2,uchar miao1)
+  45          {
+  46   1         dula=0;
+  47   1         P0=table[shi2];
+  48   1         dula=1;
+  49   1         dula=0;
+  50   1         
+  51   1         wela=0;
+  52   1         P0=0xfe;
+  53   1         wela=1;
+C51 COMPILER V8.02   CLOCKDINGSHI                                                          12/27/2012 10:16:27 PAGE 2   
+
+  54   1         wela=0;
+  55   1         delay(5);
+  56   1         
+  57   1         P0=table[shi1]|0x80;
+  58   1         dula=1;
+  59   1         dula=0;
+  60   1         
+  61   1         P0=0xfd;
+  62   1         wela=1;
+  63   1         wela=0;
+  64   1         delay(5);
+  65   1      
+  66   1         P0=table[fen2];
+  67   1         dula=1;
+  68   1         dula=0;
+  69   1         
+  70   1         P0=0xfb;
+  71   1         wela=1;
+  72   1         wela=0;
+  73   1         delay(5);
+  74   1         
+  75   1         P0=table[fen1]|0x80;
+  76   1         dula=1;
+  77   1         dula=0;
+  78   1         
+  79   1         P0=0xf7;
+  80   1         wela=1;
+  81   1         wela=0;
+  82   1         delay(5);
+  83   1         
+  84   1         P0=table[miao2];
+  85   1         dula=1;
+  86   1         dula=0;
+  87   1         
+  88   1         P0=0xef;
+  89   1         wela=1;
+  90   1         wela=0;
+  91   1         delay(5);
+  92   1         
+  93   1         P0=table[miao1];
+  94   1         dula=1;
+  95   1         dula=0;
+  96   1         
+  97   1         P0=0xdf;
+  98   1         wela=1;
+  99   1         wela=0;
+ 100   1         delay(5);
+ 101   1      }
+ 102          
+ 103          void keyscan0()
+ 104          {
+ 105   1          P3=0xfb;
+ 106   1          temp=P3;
+ 107   1          temp=temp&0xf0;
+ 108   1          if(temp!=0xf0)
+ 109   1          {
+ 110   2            delay(10);
+ 111   2            if(temp!=0xf0)
+ 112   2            {
+ 113   3              temp=P3;
+ 114   3              switch(temp)
+ 115   3              {
+C51 COMPILER V8.02   CLOCKDINGSHI                                                          12/27/2012 10:16:27 PAGE 3   
+
+ 116   4                case 0xbb:
+ 117   4                     ok=0;
+ 118   4                                 change=1;
+ 119   4                     break;
+ 120   4      
+ 121   4                case 0x7b:
+ 122   4                     ok=1;
+ 123   4                                 change=0;
+ 124   4                                 dingshi=0;
+ 125   4                     break;
+ 126   4               }      
+ 127   3      
+ 128   3            }
+ 129   2            }
+ 130   1                P3=0xf7;
+ 131   1          temp=P3;
+ 132   1          temp=temp&0xf0;
+ 133   1          if(temp!=0xf0)
+ 134   1          {
+ 135   2            delay(10);
+ 136   2            if(temp!=0xf0)
+ 137   2            {
+ 138   3              temp=P3;
+ 139   3              switch(temp)
+ 140   3              {
+ 141   4                case 0xe7:
+ 142   4                     ok=0;
+ 143   4                                 dingshi=1;
+ 144   4                     break;
+ 145   4                        case 0xd7:
+ 146   4                     yidingshi=0;      //È¡Ïû¶¨Ê±
+ 147   4                     break;
+ 148   4               } 
+ 149   3      
+ 150   3                       }
+ 151   2                       }      
+ 152   1      }
+ 153          
+ 154          
+ 155          void keyscan()
+ 156          {
+ 157   1        {     
+ 158   2          P3=0xfe;
+ 159   2          temp=P3;
+ 160   2          temp=temp&0xf0;
+ 161   2          if(temp!=0xf0)
+ 162   2          {
+ 163   3            delay(10);
+ 164   3            if(temp!=0xf0)
+ 165   3            { 
+ 166   4              temp=P3;
+ 167   4              switch(temp)
+ 168   4              {
+ 169   5                case 0xee:
+ 170   5                     key=0;
+ 171   5                                 wei++;
+ 172   5                     break;
+ 173   5      
+ 174   5                case 0xde:
+ 175   5                     key=1;
+ 176   5                                 wei++;
+ 177   5                     break;
+C51 COMPILER V8.02   CLOCKDINGSHI                                                          12/27/2012 10:16:27 PAGE 4   
+
+ 178   5      
+ 179   5                case 0xbe:
+ 180   5                     key=2;
+ 181   5                                 wei++;
+ 182   5                     break;
+ 183   5      
+ 184   5                case 0x7e:
+ 185   5                     key=3;
+ 186   5                                 wei++;
+ 187   5                     break;
+ 188   5               }
+ 189   4               while(temp!=0xf0) 
+ 190   4              {
+ 191   5                 temp=P3;
+ 192   5                 temp=temp&0xf0;
+ 193   5                 beep=0;
+ 194   5               }
+ 195   4               beep=1;
+ 196   4            }
+ 197   3          }
+ 198   2          P3=0xfd;
+ 199   2          temp=P3;
+ 200   2          temp=temp&0xf0;
+ 201   2          if(temp!=0xf0)
+ 202   2          {
+ 203   3            delay(10);
+ 204   3            if(temp!=0xf0)
+ 205   3            {
+ 206   4              temp=P3;
+ 207   4              switch(temp)
+ 208   4              {
+ 209   5                case 0xed:
+ 210   5                     key=4;
+ 211   5                                 wei++;
+ 212   5                     break;
+ 213   5      
+ 214   5                case 0xdd:
+ 215   5                     key=5;
+ 216   5                                 wei++;
+ 217   5                     break;
+ 218   5      
+ 219   5                case 0xbd:
+ 220   5                     key=6;
+ 221   5                                 wei++;
+ 222   5                     break;
+ 223   5      
+ 224   5                case 0x7d:
+ 225   5                     key=7;
+ 226   5                                 wei++;
+ 227   5                     break;
+ 228   5               }
+ 229   4               while(temp!=0xf0)
+ 230   4               {
+ 231   5                 temp=P3;
+ 232   5                 temp=temp&0xf0;
+ 233   5                 beep=0;
+ 234   5               }
+ 235   4               beep=1;
+ 236   4            }
+ 237   3            }
+ 238   2          P3=0xfb;
+ 239   2          temp=P3;
+C51 COMPILER V8.02   CLOCKDINGSHI                                                          12/27/2012 10:16:27 PAGE 5   
+
+ 240   2          temp=temp&0xf0;
+ 241   2          if(temp!=0xf0)
+ 242   2          {
+ 243   3            delay(10);
+ 244   3            if(temp!=0xf0)
+ 245   3            {
+ 246   4              temp=P3;
+ 247   4              switch(temp)
+ 248   4              {
+ 249   5                case 0xeb:
+ 250   5                     key=8;
+ 251   5                                 wei++;
+ 252   5                     break;
+ 253   5      
+ 254   5                case 0xdb:
+ 255   5                     key=9;
+ 256   5                                 wei++;
+ 257   5                     break;
+ 258   5               }
+ 259   4              while(temp!=0xf0)
+ 260   4               {
+ 261   5                 temp=P3;
+ 262   5                 temp=temp&0xf0;
+ 263   5                 beep=0;
+ 264   5               }
+ 265   4               beep=1;
+ 266   4            }
+ 267   3            }
+ 268   2      }
+ 269   1      }
+ 270          
+ 271          void main()
+ 272          {
+ 273   1              TMOD=0x01;
+ 274   1      
+ 275   1              TH0=(65536-46080)/256;// ÓÉÓÚ¾§ÕñÎª11.0592,¹ÊËù¼Ç´ÎÊýÓ¦Îª46080£¬¼ÆÊ±Æ÷Ã¿¸ô50000Î¢Ãë·¢ÆðÒ»´ÎÖÐ¶Ï¡£
+ 276   1              TL0=(65536-46080)%256;//46080µÄÀ´Àú£¬Îª50000*11.0592/12
+ 277   1              ET0=1;
+ 278   1              EA=1;
+ 279   1              
+ 280   1              while(1)
+ 281   1              {       keyscan0();
+ 282   2                      
+ 283   2                      if(ok==1)
+ 284   2                      {       TR0=1;
+ 285   3                              wei=0;
+ 286   3                      
+ 287   3                      if(pp==20)
+ 288   3                      {       pp=0;
+ 289   4                              m++;
+ 290   4                              if(m==60)
+ 291   4                              {
+ 292   5                                      m=0;
+ 293   5                                      f++;
+ 294   5                                      if(f==60)
+ 295   5                                      {
+ 296   6                                              f=0;
+ 297   6                                              s++;
+ 298   6                                              if(s==24)  //Îª24hÒ»¸öÑ­»·£¬ÈôÒª12h£¬Ö»ÐèÔÚ´Ë¸ÄÎª12¼´¿É¡£
+ 299   6                                              {
+ 300   7                                                      s=0;
+ 301   7                                              }
+C51 COMPILER V8.02   CLOCKDINGSHI                                                          12/27/2012 10:16:27 PAGE 6   
+
+ 302   6                                      }
+ 303   5                              }
+ 304   4                      }
+ 305   3                      
+ 306   3                      a0=s%10;
+ 307   3                      a1=s/10;
+ 308   3                      b0=f%10;
+ 309   3                      b1=f/10;
+ 310   3                      c0=m%10;
+ 311   3                      c1=m/10;
+ 312   3                      display(a1,a0,b1,b0,c1,c0);
+ 313   3              }
+ 314   2              else
+ 315   2              {
+ 316   3              if(change==1)
+ 317   3              {       TR0=0;
+ 318   4                      keyscan();
+ 319   4                      if(key!=10)
+ 320   4                      {
+ 321   5                      
+ 322   5                      switch(wei)
+ 323   5                      {
+ 324   6                              case 1: if(key<3)               //Ð¡Ê±×î¸ßÎ»Îª2
+ 325   6                                              a1=key;
+ 326   6                                              else
+ 327   6                                              wei--;
+ 328   6                                              break;
+ 329   6                              case 2: if(a1==1|a1==0)
+ 330   6                                              a0=key;
+ 331   6                                              else
+ 332   6                                              if(key<5)
+ 333   6                                              a0=key;            //µ±Ð¡Ê±×î¸ßÎ»Îª2Ê±£¬µÍÎ»×î¸ßÎª4
+ 334   6                                              break;
+ 335   6                              case 3: if(key<6)               //·ÖÖÓ×î¸ßÎ»Îª5
+ 336   6                                              b1=key;
+ 337   6                                              else
+ 338   6                                              wei--;
+ 339   6                                              break;
+ 340   6                              case 4: b0=key; break;
+ 341   6                              case 5: if(key<6)               //Ãë×î¸ßÎ»Îª5
+ 342   6                                              c1=key; 
+ 343   6                                              else
+ 344   6                                              wei--;
+ 345   6                                              break;
+ 346   6                              case 6: c0=key; break;
+ 347   6                      }
+ 348   5                      key=10;
+ 349   5                      }
+ 350   4                              m=c1*10+c0;
+ 351   4                              f=b1*10+b0;
+ 352   4                              s=a1*10+a0;
+ 353   4                      display(a1,a0,b1,b0,c1,c0);
+ 354   4              }
+ 355   3              if(dingshi==1)
+ 356   3              {
+ 357   4                      TR0=0;
+ 358   4                      display(shi20,shi10,fen20,fen10,miao20,miao10); 
+ 359   4                      keyscan();
+ 360   4                      if(key!=10)
+ 361   4                      {
+ 362   5                      switch(wei)
+ 363   5                      {
+C51 COMPILER V8.02   CLOCKDINGSHI                                                          12/27/2012 10:16:27 PAGE 7   
+
+ 364   6                              case 1: if(key<3)               //Ð¡Ê±×î¸ßÎ»Îª2
+ 365   6                                              shi20=key;
+ 366   6                                              else
+ 367   6                                              wei--;
+ 368   6                                              break;
+ 369   6                              case 2: if(a1==1|a1==0)
+ 370   6                                              shi10=key;
+ 371   6                                              else
+ 372   6                                              if(key<5)
+ 373   6                                              a0=key;            //µ±Ð¡Ê±×î¸ßÎ»Îª2Ê±£¬µÍÎ»×î¸ßÎª4
+ 374   6                                              break;
+ 375   6                              case 3: if(key<6)               //·ÖÖÓ×î¸ßÎ»Îª5
+ 376   6                                              fen20=key;
+ 377   6                                              else
+ 378   6                                              wei--;
+ 379   6                                              break;
+ 380   6                              case 4: fen10=key; break;
+ 381   6                              case 5: if(key<6)               //Ãë×î¸ßÎ»Îª5
+ 382   6                                              miao20=key; 
+ 383   6                                              else
+ 384   6                                              wei--;
+ 385   6                                              break;
+ 386   6                              case 6: miao10=key; break;
+ 387   6                      }
+ 388   5                      key=10;
+ 389   5                      }
+ 390   4                      yidingshi=1;
+ 391   4                      display(shi20,shi10,fen20,fen10,miao20,miao10); 
+ 392   4              }       
+ 393   3              }
+ 394   2              if(yidingshi==1)
+ 395   2              {
+ 396   3              if((a1==shi20)&&(a0==shi10)&&(b1==fen20)&&(b0==fen10)&&(c1==miao20)&&(c0==miao10))
+ 397   3                      beep=0;
+ 398   3              }
+ 399   2              if(((a1==shi20)&&(a0==shi10)&&(b1==fen20)&&(b0==fen10+1)&&(c1==miao20)&&(c0==miao10))||(yidingshi==0))//Ò
+             -»·ÖÖÓ±¨Ê±ÌáÊ¾
+ 400   2                      beep=1;
+ 401   2              }
+ 402   1      }
+ 403          
+ 404          void time0() interrupt 1
+ 405          {       TH0=(65536-46080)/256;
+ 406   1              TL0=(65536-46080)%256;
+ 407   1              pp++;
+ 408   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1105    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     29       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

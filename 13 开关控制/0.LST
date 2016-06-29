@@ -1,0 +1,64 @@
+C51 COMPILER V8.02   0                                                                     12/26/2012 14:42:13 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 0
+OBJECT MODULE PLACED IN 0.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE 0.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：使用SY-1 实验板键盘最下面一排左侧的S2键，控制一LED的亮灭
+   4                                  按下后松开，led亮；按下后再松开，led灭。
+   5                                  即使led像家里用的电灯一样受开关控制。
+   6                                  本例子中，要掌握“输入输出”的概念，单片机作为一个控制芯片，
+   7                                  必然要通过“输入输出”才可与外界相连。输入是感知外界状态，当
+   8                                  将输入作一定处理后，再通过输出控制外部模块。
+   9          *  公司：思源电子科技有限公司
+  10          *  编写：思源
+  11          *  日期：2012-12-25
+  12          *   QQ : 936559219
+  13          *  晶振:11.0592MHZ
+  14          ******************************************************************/
+  15          
+  16          
+  17          #include<reg51.h>
+  18          
+  19          sbit s2=P3^4;    //采集按键状态，此时作为输入引脚
+  20          sbit led=P1^0;   //此时作为输出引脚。
+  21          
+  22          void delay(unsigned char p)
+  23          {
+  24   1              unsigned char m,n;
+  25   1              for(m=p;m>0;m--)
+  26   1                      for(n=125;n>0;n--);
+  27   1      }
+  28          void main()
+  29          {       
+  30   1              while(1)
+  31   1              {  
+  32   2                 if(s2==0)  
+  33   2                      {       
+  34   3                              delay(10);       //消抖
+  35   3                              if(s2==0)
+  36   3                              {       while(!s2);//等待按键松开。
+  37   4                                      led=~led;
+  38   4                              }
+  39   3                      }
+  40   2      }
+  41   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     32    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

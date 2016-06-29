@@ -1,0 +1,54 @@
+C51 COMPILER V8.02   LED                                                                   12/26/2012 14:29:26 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：流水灯1
+   4          *  公司：思源电子科技有限公司
+   5          *  编写：思源
+   6          *  日期：2012-12-25
+   7          *   QQ : 936559219
+   8          *  晶振:11.0592MHZ
+   9          ******************************************************************/
+  10          #include<reg52.h>
+  11          #include<intrins.h>
+  12          
+  13          void delay(unsigned char i)
+  14          {
+  15   1              unsigned char m,n;
+  16   1              for(m=i;m>0;m--)
+  17   1              for(n=125;n>0;n--);
+  18   1      }
+  19          
+  20          void main()
+  21          {       unsigned char k;
+  22   1      while(1)
+  23   1      {
+  24   2              P1=0xfe;
+  25   2              for(k=0;k<8;k++)
+  26   2              {
+  27   3              delay(2000);
+  28   3              P1=_crol_(P1,1); //crol(left)左移一位，引用intrins.h头文件
+  29   3              }
+  30   2      }
+  31   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     43    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

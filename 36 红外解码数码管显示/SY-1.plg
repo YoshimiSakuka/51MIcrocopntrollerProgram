@@ -1,0 +1,14 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\下载与应用\文件下载\思源电子\思源电子资料\5、步骤5 学习与实验\基本学习\1、配套C实验的100个例程\36 红外解码数码管显示\SY-1.uv2
+Project File Date:  02/22/2013
+
+<h2>Output:</h2>
+Build target '目标 1'
+linking...
+Program Size: data=48.3 xdata=0 code=321
+creating hex file from "SY-1"...
+"SY-1" - 0 Error(s), 0 Warning(s).

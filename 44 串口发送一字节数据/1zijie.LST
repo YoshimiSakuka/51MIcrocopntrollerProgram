@@ -1,0 +1,104 @@
+C51 COMPILER V8.02   1ZIJIE                                                                12/27/2012 10:31:46 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 1ZIJIE
+OBJECT MODULE PLACED IN 1zijie.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE 1zijie.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：往串口发送一字节数据（可通过超级终端显示出来，
+   4                            超级终端波特率选为9600）。
+   5                            超级终端设置好后，每按下一次S2键，松开后均会在超级终端
+   6                            上显示一个字母"a"。
+   7                            入口参数：d: 要发送的字节数据。
+   8          *  公司：思源电子科技有限公司
+   9          *  编写：思源
+  10          *  日期：2012-12-25
+  11          *   QQ : 936559219
+  12          *  晶振:11.0592MHZ
+  13          ******************************************************************/
+  14          
+  15          #include <reg52.h>
+  16          #define jingzhen     11059200UL                  /*使用22.1184M晶体*/    //
+  17          #define botelv   9600UL              /*波特率定义为9600*/
+  18          unsigned char zifu='a';                 //待显示字符。
+  19          volatile unsigned char sending;
+  20          sbit s2=P3^4;
+  21          
+  22          void delay(unsigned char i)
+  23          {
+  24   1              unsigned char j,k;
+  25   1              for(j=i;j>0;j--)
+  26   1                      for(k=90;k>0;k--);
+  27   1      }
+  28          void init(void)                         //串口初始化
+  29          {
+  30   1       EA=0; //暂时关闭中断
+  31   1       TMOD&=0x0F;  //定时器1模式控制在高4位
+  32   1       TMOD|=0x20;    //定时器1工作在模式2，自动重装模式
+  33   1       SCON=0x50;     //串口工作在模式1
+  34   1       TH1=256-jingzhen/(botelv*12*16);  //计算定时器重装值
+  35   1       TL1=256-jingzhen/(botelv*12*16);
+  36   1       PCON|=0x80;    //串口波特率加倍
+  37   1       ES=1;         //串行中断允许
+  38   1       TR1=1;        //启动定时器1
+  39   1       REN=1;        //允许接收 
+  40   1       EA=1;         //允许中断
+  41   1      }
+  42          
+  43          void send(unsigned char d)                //发送一个字节的数据，形参d即为待发送数据。
+  44          {
+  45   1       
+  46   1       SBUF=d; //将数据写入到串口缓冲
+  47   1       sending=1;      //设置发送标志
+  48   1       while(sending); //等待发送完毕
+  49   1      }
+  50          
+  51          void main()
+  52          {
+  53   1              init();
+  54   1              while(1)
+  55   1              {
+C51 COMPILER V8.02   1ZIJIE                                                                12/27/2012 10:31:46 PAGE 2   
+
+  56   2                      if(s2==0)
+  57   2                      {
+  58   3                              delay(20);
+  59   3                              if(!s2)
+  60   3                              {
+  61   4                                      while(!s2);                
+  62   4                                      send(zifu);
+  63   4                              }
+  64   3                      }
+  65   2              }
+  66   1      }
+  67          
+  68          void uart(void) interrupt 4              //串口发送中断
+  69          {
+  70   1       if(RI)    //收到数据
+  71   1       {
+  72   2        RI=0;   //清中断请求
+  73   2       }
+  74   1       else      //发送完一字节数据
+  75   1       {
+  76   2        TI=0;
+  77   2        sending=0;  //清正在发送标志
+  78   2       }
+  79   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     89    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

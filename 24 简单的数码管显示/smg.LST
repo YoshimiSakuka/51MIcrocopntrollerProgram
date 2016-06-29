@@ -1,0 +1,55 @@
+C51 COMPILER V9.01   SMG                                                                   04/29/2016 20:53:26 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE SMG
+OBJECT MODULE PLACED IN smg.OBJ
+COMPILER INVOKED BY: E:\Program Files\Keil_v5\C51\BIN\C51.EXE smg.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：让SY-1 实验板的第一个数码管静态的显示数字3
+   4          *  公司：思源电子科技有限公司
+   5          *  编写：思源
+   6          *  日期：2012-12-25
+   7          *   QQ : 936559219
+   8          *  晶振:11.0592MHZ
+   9          ******************************************************************/
+  10          
+  11          
+  12          #include <reg51.h>
+  13          
+  14          //sbit dula=P2^6;   //段选信号的锁存器控制
+  15          //sbit wela=P2^7;   //位选信号的锁存器控制
+  16          
+  17          void main()
+  18          {
+  19   1        //dula=0;
+  20   1        //wela=0;
+  21   1      
+  22   1        P0=0x4f;     //数字“3”的代码
+  23   1        //dula=1;
+  24   1        //dula=0;
+  25   1      
+  26   1        //P0=0xfe;     //选中第一个数码管
+  27   1        //wela=1;
+  28   1        //wela=0;
+  29   1      
+  30   1        while(1);
+  31   1      }
+  32          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      5    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,63 @@
+C51 COMPILER V8.02   CANSHU                                                                12/26/2012 15:23:58 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE CANSHU
+OBJECT MODULE PLACED IN canshu.OBJ
+COMPILER INVOKED BY: D:\单片机\Keil Uvision3破解版\C51\BIN\C51.EXE canshu.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**********************SY-1实验开发板例程************************
+   2          *  平台：SY-1+STC89C52
+   3          *  名称：本程序提供一些常用定时器计时的具体参数。
+   4                                  用的是定时器0工作于方式1。
+   5                                  且只针对11.0592MHz的晶振。
+   6          *  公司：思源电子科技有限公司
+   7          *  编写：思源
+   8          *  日期：2012-12-25
+   9          *   QQ : 936559219
+  10          *  晶振:11.0592MHZ
+  11          ******************************************************************/
+  12          #include <reg51.h>
+  13          
+  14          void InitTimer0(void)
+  15          {
+  16   1          TMOD = 0x01;
+  17   1          TH0 = 0xFF; //延时100微秒
+  18   1          TL0 = 0xA4;
+  19   1      /*******************************************************************
+  20   1          TH0 = 0xFC;//延时1ms，请在中断处理函数中，重新装入该数值。
+  21   1          TL0 = 0x6;
+  22   1      ********************************************************************
+  23   1          TH0 = 0xDC;//延时10ms，请在中断处理函数中，重新装入该数值
+  24   1          TL0 = 0x00;
+  25   1      ********************************************************************/
+  26   1          EA = 1;
+  27   1          ET0 = 1;
+  28   1          TR0 = 1;
+  29   1      }
+  30          
+  31          void main(void)
+  32          {
+  33   1          InitTimer0();
+  34   1      }
+  35          
+  36          void Timer0Interrupt(void) interrupt 1
+  37          {
+  38   1          TH0 = 0x0FF; //这只是100微秒所对应的参数，若为其他秒数，请
+  39   1              TL0 = 0x0A4; //在次更该相应参数，如上面所示。
+  40   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     26    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
